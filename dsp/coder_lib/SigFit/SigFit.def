@@ -1,0 +1,5 @@
+EXPORTS
+SigFit
+rt_powd_snf
+SigFit_initialize
+SigFit_terminate

@@ -1,0 +1,111 @@
+<!-- saved from url=(0014)about:internet -->
+<html>
+<body>
+<script src="resources/eml_report_loadable_data.js"></script>
+<div class="dead">
+<pre class="code">
+<span class="srcline"><span class="lineno"><a href="35,1" id="srcline1">  1</a></span><span class="line">function [param, iter, state]=SigFitter_4para(x,y,param0)</span></span>
+<span class="srcline"><span class="lineno"><a href="35,2" id="srcline2">  2</a></span><span class="line"><span class="comment">%http://www.brnt.eu/phd/node10.html</span></span></span>
+<span class="srcline"><span class="lineno"><a href="35,3" id="srcline3">  3</a></span><span class="line"></span></span>
+<span class="srcline"><span class="lineno"><a href="35,4" id="srcline4">  4</a></span><span class="line">MaxIter=200;</span></span>
+<span class="srcline"><span class="lineno"><a href="35,5" id="srcline5">  5</a></span><span class="line">tol=10^-8;</span></span>
+<span class="srcline"><span class="lineno"><a href="35,6" id="srcline6">  6</a></span><span class="line">lambda = 0.01;</span></span>
+<span class="srcline"><span class="lineno"><a href="35,7" id="srcline7">  7</a></span><span class="line"><span class="comment">%eps=2.220446049250313e-16</span></span></span>
+<span class="srcline"><span class="lineno"><a href="35,8" id="srcline8">  8</a></span><span class="line">breakOut = false;</span></span>
+<span class="srcline"><span class="lineno"><a href="35,9" id="srcline9">  9</a></span><span class="line">state=1;</span></span>
+<span class="srcline"><span class="lineno"><a href="35,10" id="srcline10"> 10</a></span><span class="line">sqrteps=sqrt(eps);</span></span>
+<span class="srcline"><span class="lineno"><a href="35,11" id="srcline11"> 11</a></span><span class="line"></span></span>
+<span class="srcline"><span class="lineno"><a href="35,12" id="srcline12"> 12</a></span><span class="line">param=param0';</span></span>
+<span class="srcline"><span class="lineno"><a href="35,13" id="srcline13"> 13</a></span><span class="line">r=y-sig(param,x);</span></span>
+<span class="srcline"><span class="lineno"><a href="35,14" id="srcline14"> 14</a></span><span class="line">p = 4;</span></span>
+<span class="srcline"><span class="lineno"><a href="35,15" id="srcline15"> 15</a></span><span class="line">sse = r'*r;</span></span>
+<span class="srcline"><span class="lineno"><a href="35,16" id="srcline16"> 16</a></span><span class="line"></span></span>
+<span class="srcline"><span class="lineno"><a href="35,17" id="srcline17"> 17</a></span><span class="line">J2_diag=zeros(p,p);</span></span>
+<span class="srcline"><span class="lineno"><a href="35,18" id="srcline18"> 18</a></span><span class="line">for iter=1:MaxIter</span></span>
+<span class="srcline"><span class="lineno"><a href="35,19" id="srcline19"> 19</a></span><span class="line">    param_old = param;</span></span>
+<span class="srcline"><span class="lineno"><a href="35,20" id="srcline20"> 20</a></span><span class="line">    sse_old = sse;</span></span>
+<span class="srcline"><span class="lineno"><a href="35,21" id="srcline21"> 21</a></span><span class="line">    J = zeros(length(x), length(param));</span></span>
+<span class="srcline"><span class="lineno"><a href="35,22" id="srcline22"> 22</a></span><span class="line">    J = getjacobian(param,x);</span></span>
+<span class="srcline"><span class="lineno"><a href="35,23" id="srcline23"> 23</a></span><span class="line">    J2=J'*J;</span></span>
+<span class="srcline"><span class="lineno"><a href="35,24" id="srcline24"> 24</a></span><span class="line">    for i=1:p</span></span>
+<span class="srcline"><span class="lineno"><a href="35,25" id="srcline25"> 25</a></span><span class="line">        J2_diag(i,i)=J2(i,i);</span></span>
+<span class="srcline"><span class="lineno"><a href="35,26" id="srcline26"> 26</a></span><span class="line">    end    </span></span>
+<span class="srcline"><span class="lineno"><a href="35,27" id="srcline27"> 27</a></span><span class="line">    lambda_diag=J2_diag*lambda;</span></span>
+<span class="srcline"><span class="lineno"><a href="35,28" id="srcline28"> 28</a></span><span class="line">   step=analytical_inverse(J2+lambda_diag,p)*(J'*r);</span></span>
+<span class="srcline"><span class="lineno"><a href="35,29" id="srcline29"> 29</a></span><span class="line"><span class="comment">%     step=LinSysSolver_using_LUdcp(J2+lambda_diag,J'*r,p);</span></span></span>
+<span class="srcline"><span class="lineno"><a href="35,30" id="srcline30"> 30</a></span><span class="line"><span class="comment">% step=[J; sqrt(lambda_diag)]\[r; zeros(p,1)];</span></span></span>
+<span class="srcline"><span class="lineno"><a href="35,31" id="srcline31"> 31</a></span><span class="line">    param=param+step;</span></span>
+<span class="srcline"><span class="lineno"><a href="35,32" id="srcline32"> 32</a></span><span class="line">    </span></span>
+<span class="srcline"><span class="lineno"><a href="35,33" id="srcline33"> 33</a></span><span class="line">    r=y-sig(param,x);</span></span>
+<span class="srcline"><span class="lineno"><a href="35,34" id="srcline34"> 34</a></span><span class="line">    sse = r'*r;</span></span>
+<span class="srcline"><span class="lineno"><a href="35,35" id="srcline35"> 35</a></span><span class="line">    </span></span>
+<span class="srcline"><span class="lineno"><a href="35,36" id="srcline36"> 36</a></span><span class="line"></span></span>
+<span class="srcline"><span class="lineno"><a href="35,37" id="srcline37"> 37</a></span><span class="line">    </span></span>
+<span class="srcline"><span class="lineno"><a href="35,38" id="srcline38"> 38</a></span><span class="line">    if sse &lt; sse_old</span></span>
+<span class="srcline"><span class="lineno"><a href="35,39" id="srcline39"> 39</a></span><span class="line">        lambda = max(0.1*lambda,eps);</span></span>
+<span class="srcline"><span class="lineno"><a href="35,40" id="srcline40"> 40</a></span><span class="line"><span class="comment">%         'way1'</span></span></span>
+<span class="srcline"><span class="lineno"><a href="35,41" id="srcline41"> 41</a></span><span class="line">    else</span></span>
+<span class="srcline"><span class="lineno"><a href="35,42" id="srcline42"> 42</a></span><span class="line"><span class="comment">%         'way2'</span></span></span>
+<span class="srcline"><span class="lineno"><a href="35,43" id="srcline43"> 43</a></span><span class="line">        while sse &gt; sse_old</span></span>
+<span class="srcline"><span class="lineno"><a href="35,44" id="srcline44"> 44</a></span><span class="line">            lambda = 10*lambda;</span></span>
+<span class="srcline"><span class="lineno"><a href="35,45" id="srcline45"> 45</a></span><span class="line">            if lambda &gt; 1e16</span></span>
+<span class="srcline"><span class="lineno"><a href="35,46" id="srcline46"> 46</a></span><span class="line">                breakOut = true;</span></span>
+<span class="srcline"><span class="lineno"><a href="35,47" id="srcline47"> 47</a></span><span class="line">                break</span></span>
+<span class="srcline"><span class="lineno"><a href="35,48" id="srcline48"> 48</a></span><span class="line">            end</span></span>
+<span class="srcline"><span class="lineno"><a href="35,49" id="srcline49"> 49</a></span><span class="line">            lambda_diag=J2_diag*lambda;</span></span>
+<span class="srcline"><span class="lineno"><a href="35,50" id="srcline50"> 50</a></span><span class="line">            step=analytical_inverse(J2+lambda_diag,p)*(J'*r);</span></span>
+<span class="srcline"><span class="lineno"><a href="35,51" id="srcline51"> 51</a></span><span class="line"><span class="comment">%             step=LinSysSolver_using_LUdcp(J2+lambda_diag,J'*r,p);</span></span></span>
+<span class="srcline"><span class="lineno"><a href="35,52" id="srcline52"> 52</a></span><span class="line">            param=param_old+step;</span></span>
+<span class="srcline"><span class="lineno"><a href="35,53" id="srcline53"> 53</a></span><span class="line">            </span></span>
+<span class="srcline"><span class="lineno"><a href="35,54" id="srcline54"> 54</a></span><span class="line">            r=y-sig(param,x);</span></span>
+<span class="srcline"><span class="lineno"><a href="35,55" id="srcline55"> 55</a></span><span class="line">            sse = r'*r;</span></span>
+<span class="srcline"><span class="lineno"><a href="35,56" id="srcline56"> 56</a></span><span class="line">        end</span></span>
+<span class="srcline"><span class="lineno"><a href="35,57" id="srcline57"> 57</a></span><span class="line">    end</span></span>
+<span class="srcline"><span class="lineno"><a href="35,58" id="srcline58"> 58</a></span><span class="line">    </span></span>
+<span class="srcline"><span class="lineno"><a href="35,59" id="srcline59"> 59</a></span><span class="line"><span class="comment">%     iter</span></span></span>
+<span class="srcline"><span class="lineno"><a href="35,60" id="srcline60"> 60</a></span><span class="line"><span class="comment">%     ['sse_old: ' num2str(sse_old)]</span></span></span>
+<span class="srcline"><span class="lineno"><a href="35,61" id="srcline61"> 61</a></span><span class="line"><span class="comment">%     ['sse: ' num2str(sse)] </span></span></span>
+<span class="srcline"><span class="lineno"><a href="35,62" id="srcline62"> 62</a></span><span class="line"><span class="comment">%     ['|sse-sse_old|: ' num2str(abs(sse-sse_old)) ', tol*sse:' num2str(tol*sse)] </span></span></span>
+<span class="srcline"><span class="lineno"><a href="35,63" id="srcline63"> 63</a></span><span class="line">    </span></span>
+<span class="srcline"><span class="lineno"><a href="35,64" id="srcline64"> 64</a></span><span class="line">    </span></span>
+<span class="srcline"><span class="lineno"><a href="35,65" id="srcline65"> 65</a></span><span class="line">    if norm(step) &lt; tol*(sqrteps+norm(param))</span></span>
+<span class="srcline"><span class="lineno"><a href="35,66" id="srcline66"> 66</a></span><span class="line"><span class="comment">%         'step'</span></span></span>
+<span class="srcline"><span class="lineno"><a href="35,67" id="srcline67"> 67</a></span><span class="line"><span class="comment">%         setp</span></span></span>
+<span class="srcline"><span class="lineno"><a href="35,68" id="srcline68"> 68</a></span><span class="line">        break</span></span>
+<span class="srcline"><span class="lineno"><a href="35,69" id="srcline69"> 69</a></span><span class="line">    elseif abs(sse-sse_old) &lt;= tol*sse</span></span>
+<span class="srcline"><span class="lineno"><a href="35,70" id="srcline70"> 70</a></span><span class="line"><span class="comment">%         'sse'</span></span></span>
+<span class="srcline"><span class="lineno"><a href="35,71" id="srcline71"> 71</a></span><span class="line"><span class="comment">%         sse</span></span></span>
+<span class="srcline"><span class="lineno"><a href="35,72" id="srcline72"> 72</a></span><span class="line">        break</span></span>
+<span class="srcline"><span class="lineno"><a href="35,73" id="srcline73"> 73</a></span><span class="line">    elseif breakOut <span class="comment">%정상계산실패하면</span></span></span>
+<span class="srcline"><span class="lineno"><a href="35,74" id="srcline74"> 74</a></span><span class="line"><span class="comment">%         'c'</span></span></span>
+<span class="srcline"><span class="lineno"><a href="35,75" id="srcline75"> 75</a></span><span class="line">        state=0;</span></span>
+<span class="srcline"><span class="lineno"><a href="35,76" id="srcline76"> 76</a></span><span class="line">        break</span></span>
+<span class="srcline"><span class="lineno"><a href="35,77" id="srcline77"> 77</a></span><span class="line">    elseif  ~all(isfinite(step)) <span class="comment">%정상계산실패하면</span></span></span>
+<span class="srcline"><span class="lineno"><a href="35,78" id="srcline78"> 78</a></span><span class="line">        state=0;</span></span>
+<span class="srcline"><span class="lineno"><a href="35,79" id="srcline79"> 79</a></span><span class="line">        break</span></span>
+<span class="srcline"><span class="lineno"><a href="35,80" id="srcline80"> 80</a></span><span class="line">    end</span></span>
+<span class="srcline"><span class="lineno"><a href="35,81" id="srcline81"> 81</a></span><span class="line">    </span></span>
+<span class="srcline"><span class="lineno"><a href="35,82" id="srcline82"> 82</a></span><span class="line">    </span></span>
+<span class="srcline"><span class="lineno"><a href="35,83" id="srcline83"> 83</a></span><span class="line">end</span></span>
+<span class="srcline"><span class="lineno"><a href="35,84" id="srcline84"> 84</a></span><span class="line">param=param';</span></span>
+<span class="srcline"><span class="lineno"><a href="35,85" id="srcline85"> 85</a></span><span class="line"></span></span>
+<span class="srcline"><span class="lineno"><a href="35,86" id="srcline86"> 86</a></span><span class="line"></span></span>
+<span class="srcline"><span class="lineno"><a href="35,87" id="srcline87"> 87</a></span><span class="line">function J = getjacobian(param,x)</span></span>
+<span class="srcline"><span class="lineno"><a href="35,88" id="srcline88"> 88</a></span><span class="line">J = zeros(length(x), length(param));</span></span>
+<span class="srcline"><span class="lineno"><a href="35,89" id="srcline89"> 89</a></span><span class="line">Cmm1=10.^(param(4).*(param(3)-x));<span class="comment">%common portion</span></span></span>
+<span class="srcline"><span class="lineno"><a href="35,90" id="srcline90"> 90</a></span><span class="line">Cmm2=1+Cmm1; </span></span>
+<span class="srcline"><span class="lineno"><a href="35,91" id="srcline91"> 91</a></span><span class="line">J(:,1)=1-1./Cmm2;</span></span>
+<span class="srcline"><span class="lineno"><a href="35,92" id="srcline92"> 92</a></span><span class="line">J(:,2)=1./Cmm2;</span></span>
+<span class="srcline"><span class="lineno"><a href="35,93" id="srcline93"> 93</a></span><span class="line">J(:,3)=log(10)*(param(1)-param(2)).*param(4).*Cmm1./(Cmm2.^2);</span></span>
+<span class="srcline"><span class="lineno"><a href="35,94" id="srcline94"> 94</a></span><span class="line">J(:,4)=log(10)*(param(1)-param(2)).*(param(3)-x).*Cmm1./(Cmm2.^2);</span></span>
+</pre>
+</div>
+<pre class="code">
+<span class="srcline"><span class="lineno"><a href="35,95" id="srcline95"> 95</a></span><span class="line"></span></span>
+<span class="srcline"><span class="lineno"><a href="35,96" id="srcline96"> 96</a></span><span class="line"></span></span>
+<span class="srcline"><span class="lineno"><a href="35,97" id="srcline97"> 97</a></span><span class="line"><span class="keyword">function</span> <span class="var type1" id="S48T8U425">f</span>=sig(<span class="var type1" id="S49T35U428">param</span>,<span class="var type1" id="S50T8U429">xval</span>)</span></span>
+<span class="srcline"><span class="lineno"><a href="35,98" id="srcline98"> 98</a></span><span class="line"><span class="mxinfo " id="T8:U4"><span class="var type1" id="S48T8U432">f</span>=<span class="mxinfo " id="T8:U6"><span class="mxinfo " id="T3:U7"><span class="var type1" id="S49T35U435">param</span>(<span class="mxinfo " id="T12:U9">1</span>)</span>+<span class="mxinfo " id="T8:U10">(<span class="mxinfo " id="T3:U11"><span class="mxinfo " id="T3:U12"><span class="var type1" id="S49T35U441">param</span>(<span class="mxinfo " id="T12:U14">2</span>)</span>-<span class="mxinfo " id="T3:U15"><span class="var type1" id="S49T35U444">param</span>(<span class="mxinfo " id="T3:U17">1</span>)</span></span>)./(<span class="mxinfo " id="T8:U18"><span class="mxinfo " id="T3:U19">1</span>+<span class="mxinfo " id="T8:U20">10.^(<span class="mxinfo " id="T8:U21">(<span class="mxinfo " id="T8:U22"><span class="mxinfo " id="T3:U23"><span class="var type1" id="S49T35U456">param</span>(<span class="mxinfo " id="T12:U25">3</span>)</span>-<span class="var type1" id="S50T8U458">xval</span></span>)*<span class="mxinfo " id="T3:U27"><span class="var type1" id="S49T35U460">param</span>(<span class="mxinfo " id="T12:U29">4</span>)</span></span>)</span></span>)</span></span></span>; </span></span>
+<span class="srcline"><span class="lineno"><a href="35,99" id="srcline99"> 99</a></span><span class="line"></span></span>
+</pre>
+</body>
+</html>
