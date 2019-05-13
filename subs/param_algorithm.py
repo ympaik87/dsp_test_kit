@@ -73,6 +73,12 @@ class ParamAlgorithmPanel(wx.Panel):
             sizer_fg.Add(txtctrl_ct, 0, wx.ALL, 5)
             self.crosstalk_li.append(
                 [choice1, choice2, txtctrl_drfu, txtctrl_ct])
+        sizer_crosstalk.Add(sizer_fg, 1, wx.EXPAND, 5)
+        sizer_panel4.Add(sizer_crosstalk, 1, wx.EXPAND, 5)
+
+        line = wx.StaticLine(self, wx.ID_ANY, wx.DefaultPosition,
+                             wx.DefaultSize, wx.LI_HORIZONTAL)
+        sizer_crosstalk.Add(line, 0, wx.EXPAND | wx.ALL, 5)
 
         sizer_alg = wx.BoxSizer(wx.VERTICAL)
         txt = wx.StaticText(self, wx.ID_ANY, 'Algorithm',
@@ -90,14 +96,6 @@ class ParamAlgorithmPanel(wx.Panel):
         sizer_fg2.SetFlexibleDirection(wx.BOTH)
         sizer_fg2.SetNonFlexibleGrowMode(wx.FLEX_GROWMODE_SPECIFIED)
         self.algorithm_entry_li = []
-        for txt in ['과도한 CR에 대한 보정', 'Ct값 보정']:
-            choice1 = wx.Choice(self, wx.ID_ANY, wx.DefaultPosition,
-                                wx.DefaultSize, choice_li[0])
-            choice1.SetSelection(0)
-            choice2 = wx.Choice(self, wx.ID_ANY, wx.DefaultPosition,
-                                wx.DefaultSize, choice_li[1])
-            choice2.SetSelection(0)
-            self.algorithm_entry_li.append([choice1, choice2])
 
         txt = wx.StaticText(self, wx.ID_ANY, '제품별 알고리즘',
                             wx.DefaultPosition, wx.DefaultSize, 0)
@@ -166,7 +164,7 @@ class ParamAlgorithmPanel(wx.Panel):
     def get_crosstalk(self):
         crosstalk_val_li = []
         for cross_entries in self.crosstalk_li:
-            vals = [None for e in cross_entries[:2]]
+            vals = [e.GetSelection() for e in cross_entries[:2]]
             if vals[0] and vals[1]:
                 ch1 = self.crosstalk_choice_li[vals[0] - 1]
                 ch2 = self.crosstalk_choice_li[vals[1] - 1]

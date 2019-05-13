@@ -147,7 +147,6 @@ class FrameParam(wx.Frame):
 
         self.nb_panel4 = ParamAlgorithmPanel(notebook, self.dye_li)
         notebook.AddPage(self.nb_panel4, 'Algorithm', False)
-        notebook.DeletePage(3)
 
         sizer_notebook.Add(notebook, 1, 0, 0)
         sizer_panel.Add(sizer_notebook, 1, 0, 0)
