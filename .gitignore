@@ -1,5 +1,10 @@
 # project specific
-test/
+Raw Files/
+config/
+log/
+*.xlsx
+.idea
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

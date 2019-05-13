@@ -18,7 +18,7 @@ class FrameParam(wx.Frame):
                           pos=wx.DefaultPosition, size=wx.Size(730, 530),
                           style=wx.DEFAULT_FRAME_STYLE | wx.TAB_TRAVERSAL)
         self.version = wx.VersionInfo(
-            name='DSP test kit', major=1, minor=0, micro=0)
+            name='DSP test kit', major=2, minor=0, micro=0)
         self.dye_li = ['FAM', 'HEX', 'Cal Red 610', 'Quasar 670', 'Quasar 705']
         self.param_df = get_init_parameters(self.dye_li)
         self.filepath = None
@@ -147,7 +147,6 @@ class FrameParam(wx.Frame):
 
         self.nb_panel4 = ParamAlgorithmPanel(notebook, self.dye_li)
         notebook.AddPage(self.nb_panel4, 'Algorithm', False)
-        notebook.DeletePage(3)
 
         sizer_notebook.Add(notebook, 1, 0, 0)
         sizer_panel.Add(sizer_notebook, 1, 0, 0)
