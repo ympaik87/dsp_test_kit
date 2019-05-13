@@ -89,9 +89,12 @@ class ParamAlgorithmPanel(wx.Panel):
         choice_li = [
             ['Default (latest ver.)', 'Old ver.'],
             ['All', 'Sample only', 'PC only'],
+            # ['Defualt', 'GI-V (cross-talk)',
+            #  'GI-BI (2-CR)', 'GI-P (Q670 PC)']
             ['Defualt', 'GI-V (cross-talk)',
-             'GI-BI (2-CR)', 'GI-P (Q670 PC)']
+             'GI-BI (2-CR)']
         ]
+        sizer_fg2 = wx.FlexGridSizer(0, 3, 0, 40)
         sizer_fg2 = wx.FlexGridSizer(0, 3, 0, 40)
         sizer_fg2.SetFlexibleDirection(wx.BOTH)
         sizer_fg2.SetNonFlexibleGrowMode(wx.FLEX_GROWMODE_SPECIFIED)
@@ -140,8 +143,7 @@ class ParamAlgorithmPanel(wx.Panel):
             else:
                 algorithm_param_dict[al_li[i]] = {'PC': 0, 'sample': 0}
 
-        # prod_al = self.algorithm_entry_li[2].GetSelection()
-        prod_al = 0
+        prod_al = self.algorithm_entry_li[2].GetSelection()
         if prod_al == 1:
             algorithm_param_dict['gi_switch'] = 1
             algorithm_param_dict['gib1_switch'] = 0
