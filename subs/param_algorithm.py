@@ -17,10 +17,8 @@ class ParamAlgorithmPanel(wx.Panel):
         choice_li = [
             ['Default (latest ver.)', 'Old ver.'],
             ['All', 'Sample only', 'PC only'],
-            # ['Defualt', 'GI-V (cross-talk)',
-            #  'GI-BI (2-CR)', 'GI-P (Q670 PC)']
             ['Defualt', 'GI-V (cross-talk)',
-             'GI-BI (2-CR)']
+             'GI-BI (2-CR)', 'GI-P (Q670 PC)']
         ]
         sizer_fg2 = wx.FlexGridSizer(0, 3, 0, 40)
         sizer_fg2 = wx.FlexGridSizer(0, 3, 0, 40)
