@@ -76,39 +76,6 @@ class ParamAlgorithmPanel(wx.Panel):
         sizer_crosstalk.Add(sizer_fg, 1, wx.EXPAND, 5)
         sizer_panel4.Add(sizer_crosstalk, 1, wx.EXPAND, 5)
 
-        line = wx.StaticLine(self, wx.ID_ANY, wx.DefaultPosition,
-                             wx.DefaultSize, wx.LI_HORIZONTAL)
-        sizer_crosstalk.Add(line, 0, wx.EXPAND | wx.ALL, 5)
-
-        sizer_alg = wx.BoxSizer(wx.VERTICAL)
-        txt = wx.StaticText(self, wx.ID_ANY, 'Algorithm',
-                            wx.DefaultPosition, wx.DefaultSize, 0)
-        txt.Wrap(-1)
-        sizer_alg.Add(txt, 0, wx.ALL, 5)
-
-        choice_li = [
-            ['Default (latest ver.)', 'Old ver.'],
-            ['All', 'Sample only', 'PC only'],
-            ['Defualt', 'GI-V (cross-talk)',
-             'GI-BI (2-CR)', 'GI-P (Q670 PC)']
-        ]
-        sizer_fg2 = wx.FlexGridSizer(0, 3, 0, 40)
-        sizer_fg2.SetFlexibleDirection(wx.BOTH)
-        sizer_fg2.SetNonFlexibleGrowMode(wx.FLEX_GROWMODE_SPECIFIED)
-        self.algorithm_entry_li = []
-
-        txt = wx.StaticText(self, wx.ID_ANY, '제품별 알고리즘',
-                            wx.DefaultPosition, wx.DefaultSize, 0)
-        txt.Wrap(-1)
-        sizer_fg2.Add(txt, 0, wx.ALL, 5)
-        choice = wx.Choice(self, wx.ID_ANY, wx.DefaultPosition,
-                           wx.DefaultSize, choice_li[2])
-        choice.SetSelection(0)
-        self.algorithm_entry_li.append(choice)
-        sizer_fg2.Add(choice, 0, wx.ALL, 5)
-        sizer_alg.Add(sizer_fg2, 0, wx.ALIGN_CENTER, 5)
-        sizer_panel4.Add(sizer_alg, 1, wx.EXPAND, 5)
-
         self.SetSizer(sizer_panel4)
         self.Layout()
         sizer_panel4.Fit(self)

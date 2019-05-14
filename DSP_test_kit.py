@@ -29,7 +29,7 @@ class FrameParam(wx.Frame):
         self._pgrv.set_version_info(self.version.GetVersionString())
 
         self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
-        self.SetTitle(self.initial_title)
+        self.SetTitle('DSP test kit')
         self.menubar = wx.MenuBar(0)
         menu = wx.Menu()
         menu_open = wx.MenuItem(
@@ -146,7 +146,7 @@ class FrameParam(wx.Frame):
         notebook.AddPage(nb_panel3, 'PC', False)
 
         self.nb_panel4 = ParamAlgorithmPanel(notebook, self.dye_li)
-        notebook.AddPage(self.nb_panel4, 'Algorithm', False)
+        notebook.AddPage(self.nb_panel4, 'Crosstalk', False)
 
         sizer_notebook.Add(notebook, 1, 0, 0)
         sizer_panel.Add(sizer_notebook, 1, 0, 0)
