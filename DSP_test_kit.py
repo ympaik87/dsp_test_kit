@@ -18,18 +18,18 @@ class FrameParam(wx.Frame):
                           pos=wx.DefaultPosition, size=wx.Size(730, 530),
                           style=wx.DEFAULT_FRAME_STYLE | wx.TAB_TRAVERSAL)
         self.version = wx.VersionInfo(
-            name='DSP test kit', major=2, minor=0, micro=0)
+            name='DSP test kit', major=1, minor=0, micro=0)
         self.dye_li = ['FAM', 'HEX', 'Cal Red 610', 'Quasar 670', 'Quasar 705']
         self.param_df = get_init_parameters(self.dye_li)
         self.filepath = None
-        self.initial_title = self.version.GetVersionString()
+        self.initial_title = 'DSP test kit'
         self.status_bar = self.CreateStatusBar(1, wx.STB_SIZEGRIP, wx.ID_ANY)
         self._pgrv = PgrvFrame(self.status_bar)
         self._pgrv.Show(False)
         self._pgrv.set_version_info(self.version.GetVersionString())
 
         self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
-        self.SetTitle('DSP test kit')
+        self.SetTitle(self.initial_title)
         self.menubar = wx.MenuBar(0)
         menu = wx.Menu()
         menu_open = wx.MenuItem(
@@ -146,7 +146,7 @@ class FrameParam(wx.Frame):
         notebook.AddPage(nb_panel3, 'PC', False)
 
         self.nb_panel4 = ParamAlgorithmPanel(notebook, self.dye_li)
-        notebook.AddPage(self.nb_panel4, 'Algorithm', False)
+        notebook.AddPage(self.nb_panel4, 'Crosstalk', False)
 
         sizer_notebook.Add(notebook, 1, 0, 0)
         sizer_panel.Add(sizer_notebook, 1, 0, 0)
