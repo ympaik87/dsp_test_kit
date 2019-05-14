@@ -8,6 +8,78 @@ class ParamAlgorithmPanel(wx.Panel):
         sizer_panel4 = wx.BoxSizer(wx.VERTICAL)
         self.dye_li = dye_li
 
+        sizer_crosstalk = wx.BoxSizer(wx.VERTICAL)
+        txt = wx.StaticText(self, wx.ID_ANY, 'Crosstalk',
+                            wx.DefaultPosition, wx.DefaultSize, 0)
+        txt.Wrap(-1)
+        sizer_crosstalk.Add(txt, 0, wx.ALL, 5)
+
+        sizer_fg = wx.FlexGridSizer(4, 6, 0, 0)
+        sizer_fg.SetFlexibleDirection(wx.BOTH)
+        sizer_fg.SetNonFlexibleGrowMode(wx.FLEX_GROWMODE_SPECIFIED)
+        sizer_fg.Add((0, 0), 1, wx.EXPAND, 5)
+        txt = wx.StaticText(self, wx.ID_ANY, 'Target 1 (From)',
+                            wx.DefaultPosition, wx.DefaultSize, 0)
+        txt.Wrap(-1)
+        sizer_fg.Add(txt, 0, wx.ALL, 5)
+        sizer_fg.Add((0, 0), 1, wx.EXPAND, 5)
+        txt = wx.StaticText(self, wx.ID_ANY, 'Target 2 (To)',
+                            wx.DefaultPosition, wx.DefaultSize, 0)
+        txt.Wrap(-1)
+        sizer_fg.Add(txt, 0, wx.ALL, 5)
+
+        for t in ['DRFU', 'Ct Thrd']:
+            txt = wx.StaticText(self, wx.ID_ANY, t, wx.DefaultPosition,
+                                wx.DefaultSize, 0)
+            txt.Wrap(-1)
+            sizer_fg.Add(txt, 0, wx.ALL, 5)
+
+        self.crosstalk_choice_li = ['Choose channel']
+        for dye in self.dye_li:
+            for temp_sub in ['_L', '_H']:
+                self.crosstalk_choice_li.append(dye + temp_sub)
+
+        self.crosstalk_li = []
+        for i in range(3):
+            txt = wx.StaticText(self, wx.ID_ANY, f'crosstalk {i+1}',
+                                wx.DefaultPosition, wx.DefaultSize, 0)
+            txt.Wrap(-1)
+            sizer_fg.Add(txt, 0, wx.ALL, 5)
+
+            choice1 = wx.Choice(
+                self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize,
+                self.crosstalk_choice_li, 0)
+            choice1.SetSelection(0)
+            sizer_fg.Add(choice1, 0, wx.ALL, 5)
+
+            txt = wx.StaticText(self, wx.ID_ANY, '➜',
+                                wx.DefaultPosition, wx.DefaultSize, 0)
+            txt.Wrap(-1)
+            sizer_fg.Add(txt, 0, wx.ALL, 5)
+
+            choice2 = wx.Choice(
+                self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize,
+                self.crosstalk_choice_li, 0)
+            choice2.SetSelection(0)
+            sizer_fg.Add(choice2, 0, wx.ALL, 5)
+
+            txtctrl_drfu = wx.TextCtrl(
+                self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition,
+                wx.DefaultSize, 0)
+            sizer_fg.Add(txtctrl_drfu, 0, wx.ALL, 5)
+            txtctrl_ct = wx.TextCtrl(
+                self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition,
+                wx.DefaultSize, 0)
+            sizer_fg.Add(txtctrl_ct, 0, wx.ALL, 5)
+            self.crosstalk_li.append(
+                [choice1, choice2, txtctrl_drfu, txtctrl_ct])
+        sizer_crosstalk.Add(sizer_fg, 1, wx.EXPAND, 5)
+        sizer_panel4.Add(sizer_crosstalk, 1, wx.EXPAND, 5)
+
+        line = wx.StaticLine(self, wx.ID_ANY, wx.DefaultPosition,
+                             wx.DefaultSize, wx.LI_HORIZONTAL)
+        sizer_crosstalk.Add(line, 0, wx.EXPAND | wx.ALL, 5)
+
         sizer_alg = wx.BoxSizer(wx.VERTICAL)
         txt = wx.StaticText(self, wx.ID_ANY, 'Algorithm',
                             wx.DefaultPosition, wx.DefaultSize, 0)
@@ -92,7 +164,7 @@ class ParamAlgorithmPanel(wx.Panel):
     def get_crosstalk(self):
         crosstalk_val_li = []
         for cross_entries in self.crosstalk_li:
-            vals = [None for e in cross_entries[:2]]
+            vals = [e.GetSelection() for e in cross_entries[:2]]
             if vals[0] and vals[1]:
                 ch1 = self.crosstalk_choice_li[vals[0] - 1]
                 ch2 = self.crosstalk_choice_li[vals[1] - 1]

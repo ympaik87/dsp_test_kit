@@ -72,7 +72,6 @@ def write_pos_ratio(ws, rw, col, params, result_dict):
 def save_param_info(writer, params, result_dict, version_info, is_dev=False):
     ws = writer.add_worksheet('parameters')
     row = 0
-    ws.write(row, 0, version_info)
     if params['is_dev']:
         ws.write(row, 2, 'Latest baseline filters enabled')
     row += 1

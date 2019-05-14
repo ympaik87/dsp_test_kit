@@ -18,11 +18,11 @@ class FrameParam(wx.Frame):
                           pos=wx.DefaultPosition, size=wx.Size(730, 530),
                           style=wx.DEFAULT_FRAME_STYLE | wx.TAB_TRAVERSAL)
         self.version = wx.VersionInfo(
-            name='DSP test kit', major=2, minor=0, micro=0)
+            name='DSP test kit', major=3, minor=0, micro=0)
         self.dye_li = ['FAM', 'HEX', 'Cal Red 610', 'Quasar 670', 'Quasar 705']
         self.param_df = get_init_parameters(self.dye_li)
         self.filepath = None
-        self.initial_title = self.version.GetVersionString()
+        self.initial_title = 'DSP test kit'
         self.status_bar = self.CreateStatusBar(1, wx.STB_SIZEGRIP, wx.ID_ANY)
         self._pgrv = PgrvFrame(self.status_bar)
         self._pgrv.Show(False)
