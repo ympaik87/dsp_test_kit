@@ -22,14 +22,14 @@ class FrameParam(wx.Frame):
         self.dye_li = ['FAM', 'HEX', 'Cal Red 610', 'Quasar 670', 'Quasar 705']
         self.param_df = get_init_parameters(self.dye_li)
         self.filepath = None
-        self.initial_title = self.version.GetVersionString()
+        self.initial_title = 'DSP test kit'
         self.status_bar = self.CreateStatusBar(1, wx.STB_SIZEGRIP, wx.ID_ANY)
         self._pgrv = PgrvFrame(self.status_bar)
         self._pgrv.Show(False)
         self._pgrv.set_version_info(self.version.GetVersionString())
 
         self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
-        self.SetTitle('DSP test kit')
+        self.SetTitle(self.initial_title)
         self.menubar = wx.MenuBar(0)
         menu = wx.Menu()
         menu_open = wx.MenuItem(
