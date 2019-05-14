@@ -93,6 +93,7 @@ class ParamAlgorithmPanel(wx.Panel):
              'GI-BI (2-CR)', 'GI-P (Q670 PC)']
         ]
         sizer_fg2 = wx.FlexGridSizer(0, 3, 0, 40)
+        sizer_fg2 = wx.FlexGridSizer(0, 3, 0, 40)
         sizer_fg2.SetFlexibleDirection(wx.BOTH)
         sizer_fg2.SetNonFlexibleGrowMode(wx.FLEX_GROWMODE_SPECIFIED)
         self.algorithm_entry_li = []
@@ -140,8 +141,7 @@ class ParamAlgorithmPanel(wx.Panel):
             else:
                 algorithm_param_dict[al_li[i]] = {'PC': 0, 'sample': 0}
 
-        # prod_al = self.algorithm_entry_li[2].GetSelection()
-        prod_al = 0
+        prod_al = self.algorithm_entry_li[2].GetSelection()
         if prod_al == 1:
             algorithm_param_dict['gi_switch'] = 1
             algorithm_param_dict['gib1_switch'] = 0

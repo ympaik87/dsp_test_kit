@@ -146,7 +146,7 @@ class FrameParam(wx.Frame):
         notebook.AddPage(nb_panel3, 'PC', False)
 
         self.nb_panel4 = ParamAlgorithmPanel(notebook, self.dye_li)
-        notebook.AddPage(self.nb_panel4, 'Crosstalk', False)
+        notebook.AddPage(self.nb_panel4, 'Algorithm', False)
 
         sizer_notebook.Add(notebook, 1, 0, 0)
         sizer_panel.Add(sizer_notebook, 1, 0, 0)
