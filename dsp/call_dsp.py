@@ -214,5 +214,8 @@ class CallDsp:
                 else:
                     params_dict[var_name] = int(float(init_params_dict[key]))
         params_dict.update({'dye_li': self.dye_li})
+        params_dict['drfu3'] = {}
+        for dye in self.dye_li:
+            params_dict['drfu3'][dye] = 0
         params_dict.update(algorithm_param_dict)
         return params_dict

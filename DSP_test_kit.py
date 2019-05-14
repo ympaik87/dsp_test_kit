@@ -240,12 +240,12 @@ class FrameParam(wx.Frame):
     def get_sample(self):
         self.sample_index = ['sfc', 'mfc', 'cr', 'drfu1', 'drfu2', 'thrd1',
                              'thrd2', 'rpc1', 'rpc2', 'rc1', 'rc2', 'dfm1',
-                             'dfm2', 'dfc1', 'dfc2', 'ptp', 'drfu3']
+                             'dfm2', 'dfc1', 'dfc2', 'ptp']
         sample_df = self.param_df.loc[self.sample_index][self.dye_li]
         index = [t.upper() for t in self.sample_index]
         index_temp = [t.replace('1', ' (L)').replace('2', ' (H)')
-                      for t in index[:-2]]
-        self.sample_index_display = index_temp + ['DRFU2', 'DRFU3']
+                      for t in index[:-1]]
+        self.sample_index_display = index_temp + ['DRFU2']
         sample_df.index = self.sample_index_display
         return DataTable(sample_df)
 

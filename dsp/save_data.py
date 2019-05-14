@@ -139,8 +139,6 @@ def save_param_info(writer, params, result_dict, version_info, is_dev=False):
     _templess(params, 'MFC (PC)', 'MFC_pc', ws, row)
     row += 1
     _templess(params, 'DRFU2', 'PTP', ws, row)
-    row += 1
-    _templess(params, 'DRFU3', 'drfu3', ws, row)
 
     row += 3
     _temp(params, 'BPN RV', 'BPN_rv', ws, row)
